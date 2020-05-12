@@ -1,0 +1,35 @@
+<html>
+
+{% include 'head.html' %}
+
+<body>
+
+  {% include 'header.html' %}
+  <main>
+    {% for page in website.collections['posts'].pages %}
+    
+    <div class="homepage--section__article">
+      <div class="article-date">{{page.created_at}}</div>
+      <div class="text-serif">
+      <a href="{{page.url}}">
+          <h1>{{page.title}}</h1>
+      </a>
+      {{ page.body| truncate(200, false,'') }}[...]
+      </div>
+      <div class="container-more">
+          <a class="more-text" href={{page.url}}>Continue reading...</a>
+
+          <p class="tags-container">
+            {% for tag in page.tags%}
+            <small>{{tag}}</small>
+            {% endfor %}
+          </p>
+      </div>
+
+    </div>
+    {% endfor %}
+  </main>
+</body>
+
+
+</html>

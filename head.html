@@ -1,0 +1,68 @@
+<head>
+  <title>{{ website.meta["title"] }}</title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js" ></script>
+  <link href="https://fonts.googleapis.com/css?family=Lora|Montserrat&display=swap" rel="stylesheet">
+<script>
+
+function getWidth() {
+  return Math.max(
+    document.body.scrollWidth,
+    document.documentElement.scrollWidth,
+    document.body.offsetWidth,
+    document.documentElement.offsetWidth,
+    document.documentElement.clientWidth
+  );
+}
+
+function getHeight() {
+  return Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.offsetHeight,
+    document.documentElement.clientHeight
+  );
+}
+
+
+var isDrawing = function(){
+	return Math.random() > 0.7;
+}
+
+var drawRect = function(draw, x, y){
+	var rect = draw.rect(20, 20).move(x,y).attr({fill:"transparent"});
+	rect.stroke({ color: "#eee", width: 1});
+};
+
+
+SVG.on(document, 'DOMContentLoaded', function() {
+	var width = getWidth();
+	var height = getHeight();
+	
+	var blockWidth = 20;
+	var blockHeight = 20;
+	
+	var nBlocksWidth = Math.floor(width / blockWidth);
+	var nBlocksHeight = Math.floor(height / blockHeight);
+	
+	var widthOffset = (width % blockWidth) / 2;
+	var heightOffset = (height % blockHeight) / 2;
+	
+	var draw = SVG().addTo('body').size(width, height);
+	
+	console.log("width: " + width);
+	console.log("height: " + height);
+	
+	for(var i = 0; i < nBlocksWidth; i++){
+		for(var j = 0; j < nBlocksHeight; j++){
+			if(isDrawing()){
+				drawRect(draw, i * blockWidth + widthOffset, j * blockHeight + heightOffset);
+			}
+		}		
+	}
+
+})
+</script>
+</head>
+
