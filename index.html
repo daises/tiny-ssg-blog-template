@@ -9,12 +9,13 @@
     {% for page in website.collections['posts'].pages %}
     
     <div class="homepage--section__article">
-      <div class="article-date">{{page.created_at}}</div>
+      <div class="article-date">{{page.created_at|datetimeformat('%B %d, %Y')}}</div>
       <div class="text-serif">
       <a href="{{page.url}}">
           <h1>{{page.title}}</h1>
       </a>
-      {{ page.body| truncate(200, false,'') }}[...]
+      {% set truncateAfter = page.meta['truncateafter']|first|int %}
+      {{ page.body| truncate(truncateAfter, false,'') }}[...]
       </div>
       <div class="container-more">
           <a class="more-text" href={{page.url}}>Continue reading...</a>
